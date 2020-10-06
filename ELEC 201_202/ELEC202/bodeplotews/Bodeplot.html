@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!-- start: printthread -->
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title> Bode Magntiude Plot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style type="text/css">
+body { font-family: Verdana, Arial, sans-serif; font-size: 13px; }
+.largetext { font-family: Verdana, Arial, sans-serif; font-size: medium; font-weight: bold; }
+</style>
+</head>
+<body>
+<table width="98%" align="center">
+<tr>
+<td>
+<span class="largetext"> <a href="http://www.hpmuseum.org/forum/thread-8123.html">Bode Magntiude Plot</a></span><br />
+<br />
++- HP Forums (<em>http://www.hpmuseum.org/forum</em>)<br />
++-- Forum: HP Software Libraries (<i>/forum-10.html</i>)<br />
++--- Forum: HP Prime Software Library (<i>/forum-15.html</i>)<br />
+
++--- Thread:  Bode Magntiude Plot (<em>/thread-8123.html</em>)<br />
+<br />
+</td>
+</tr>
+<tr>
+<td><br /><hr size="1" /><!-- start: printthread_post -->
+<strong>Bode Magntiude Plot</strong> - <a href="http://www.hpmuseum.org/forum/user-135.html">Eddie W. Shore</a> -  <strong>04-05-2017</strong> <strong>08:17 PM</strong>
+<br />
+<br />
+For details and examples:  <a href="http://edspi31415.blogspot.com/2017/04/hp-prime-magnitude-bode-plot.html" target="_blank" rel="nofollow">http://edspi31415.blogspot.com/2017/04/hp-prime-magnitude-bode-plot.html</a><br />
+<br />
+<span style="color: #FF6347;"><span style="font-weight: bold;">How BODEPLOT Works</span></span><br />
+<br />
+The program BODEPLOT for the HP Prime plots a handmade Bode Plot for any of the following forms:<br />
+<br />
+(I) H(s) = K * (s/A + 1)/(s/B + 1)<br />
+(II) H(s) = K * (s/A + 1)<br />
+(III) H(s) = K * 1/(s/B + 1)<br />
+<br />
+with K = constant, -A = real root, -B = real pole<br />
+<br />
+For type (II), enter 0 for B.  For type (III), enter 0 for A.  K must be nonzero, and it is assumed that K is positive.  The plot is made of a composition of two or three basic plots.<br />
+<br />
+One thing to know:  the program simulates semi-log plot.  The X axis represents values of 10^x.  Hence, X = 0 represents 1, X = 1 represents 10, X = 2 represents 100, and so on.  Hence, each X represents a decade (instead of the customary unit).  <br />
+<br />
+<span style="color: #FF4500;"><span style="font-weight: bold;">HP Prime Program BODEPLOT</span></span><br />
+<br />
+<div class="codeblock">
+<div class="title">Code:<br />
+</div><div class="body" dir="ltr"><code>EXPORT&nbsp;BODEPLOT()<br />
+BEGIN<br />
+//&nbsp;Bode&nbsp;Magnitude&nbsp;Plot<br />
+//&nbsp;K*(s/A+1)/(s/B+1)&nbsp;<br />
+//&nbsp;2017-04-05&nbsp;EWS<br />
+<br />
+INPUT({K,A,B},<br />
+"Mag.:&nbsp;K*(s/A+1)/(s/B+1)",<br />
+{"Const&nbsp;(K):&nbsp;","Zero&nbsp;(−A):&nbsp;",<br />
+"Pole&nbsp;(−B):&nbsp;"},<br />
+{"Constant","Zero","Plot"});<br />
+<br />
+<br />
+F1:="20*LOG(K)";<br />
+F2:="PIECEWISE(X≤LOG(A),0,<br />
+X&gt;LOG(A),20X-20LOG(A))";<br />
+F3:="PIECEWISE(X≤LOG(B),0,<br />
+X&gt;LOG(B),−20X+20LOG(B))";<br />
+F4:="F1(X)+F2(X)+F3(X)";<br />
+<br />
+//&nbsp;dark&nbsp;red&nbsp;color<br />
+F4(COLOR):=#800000h;<br />
+<br />
+IF&nbsp;A==0&nbsp;THEN<br />
+F2:="0";<br />
+END;<br />
+<br />
+IF&nbsp;B==0&nbsp;THEN<br />
+F3:="0";<br />
+END;<br />
+<br />
+STARTAPP("Function");<br />
+CHECK(4);<br />
+UNCHECK(1);<br />
+UNCHECK(2);<br />
+UNCHECK(3);<br />
+//&nbsp;Autoscale<br />
+STARTVIEW(10,1);<br />
+<br />
+END;</code></div></div>
+
+<br />
+<br />
+<hr size="1" />
+<!-- end: printthread_post --></td>
+</tr>
+</table>
+</body>
+</html>
+<!-- end: printthread -->

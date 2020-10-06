@@ -1,0 +1,54 @@
+// Y - Delta conversion
+// input the loads, or voltage or current information and specify the configuration
+//vph - Source/Phase Voltage
+//zf - line impendance
+//zl - Load impedance
+//src - Source configration y or d lower case
+//load - Load configuration y or d lower case
+#cas
+ph3vph,zf,zl,src,load):=
+BEGIN
+LOCAL va,ia,iph,ss,sl;
+
+
+IF src = y THEN IF load = y THEN  //Y-Y configuration
+ia = vph/(zf+zl); //Line Current
+iph = ia; //Phase current
+va = (1.5+0.8660254*i)*vph; //Line voltage sqrt(3)*vph(+30deg)
+ss = 3*vph*conj(ia);   //Power by source
+sl = 3*(abs(ia))^2*zl; //Power by load
+END;
+END;
+
+IF src = y THEN IF load = d THEN //Y-D configuration
+ia = vph/(zl/3+zf); //Line voltage
+iph = ia*(0.5+0.2886751*i);  //Phase current
+va = (1.5+0.8660254*i)*vph; //Line voltage sqrt(3)*vph(+30deg)
+ss = 3*vph*conj(ia);   //Power by source
+sl = 3*(abs(iph))^2*zl; //Power by load
+END;
+END;
+
+IF src = d THEN IF load = d THEN //D-D configuration
+vph = va; //Phase V = Line V
+ia = vph/(zl/3+zf); //Line voltage
+iph = ia*(0.5+0.2886751*i);  //Phase current
+va = vph; //Line voltage
+ss = 3*vph*conj(ia); //Power by source
+sl = 3*(abs(iph))^2*zl; //Power by load
+END;
+END;
+
+IF src = d THEN IF load = y THEN //D-D configuration
+vph = va; //Phase V = Line V
+ia = vph/(zl/3+zf); //Line voltage
+iph = ia;  //Phase current
+va = vph; //Line voltage
+ss = 3*vph*conj(ia); //Power by source
+sl = 3*(abs(iph))^2*zl; //Power by load
+END;
+END;
+
+return [va,ia,iph,ss,sl];
+END;
+#end

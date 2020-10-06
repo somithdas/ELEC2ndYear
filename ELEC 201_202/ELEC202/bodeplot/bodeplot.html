@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!-- start: printthread -->
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title> Bode/Root Locus/Nyquist/Nichols...App{update 09JUN2016}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style type="text/css">
+body { font-family: Verdana, Arial, sans-serif; font-size: 13px; }
+.largetext { font-family: Verdana, Arial, sans-serif; font-size: medium; font-weight: bold; }
+</style>
+</head>
+<body>
+<table width="98%" align="center">
+<tr>
+<td>
+<span class="largetext"> <a href="http://www.hpmuseum.org/forum/thread-3891.html">Bode/Root Locus/Nyquist/Nichols...App{update 09JUN2016}</a></span><br />
+<br />
++- HP Forums (<em>http://www.hpmuseum.org/forum</em>)<br />
++-- Forum: HP Calculators (and very old HP Computers) (<i>/forum-3.html</i>)<br />
++--- Forum: HP Prime (<i>/forum-5.html</i>)<br />
+
++--- Thread:  Bode/Root Locus/Nyquist/Nichols...App{update 10AUG2016} (<em>/thread-3891.html</em>)<br />
+<br />
+</td>
+</tr>
+<tr>
+<td><br /><hr size="1" /><!-- start: printthread_post -->
+<strong>Bode/Root Locus/Nyquist/Nichols...App{update 10AUG2016}</strong> - <a href="http://www.hpmuseum.org/forum/user-2265.html">toshk</a> -  <strong>05-18-2015</strong> <strong>05:27 AM</strong>
+<br />
+<br />
+<span style="font-size: x-large;"><span style="font-size: large;">Bode/Nyquist/RootLocus/Nichols/ with "Delay response" /Step Response/Ramp Response...App</span></span><br />
+with controls...and more functionality/Robust. enjoy!!! Report bugs.<br />
+<span style="text-decoration: underline;">fixed issues at the poles: example BODE(0.01,100,[1 ],[1 0 1] error::</span><br />
+<span style="text-decoration: underline;">fixed issues with Step/Ramp plots: example BODE(0.01,100,[1 ],[1 0 .3 5 8 .23 1] error</span><br />
+<span style="text-decoration: underline;">With Root Locus now</span><br />
+<span style="color: #FF4500;">Optional</span> <span style="text-decoration: underline;"> enter gain value for Root Locus plot...</span> <span style="color: #FF0000;"><span style="font-weight: bold;">G:=Gain Value of Interest</span></span><br />
+<span style="color: #FF1493;">Optional </span><span style="text-decoration: underline;"> plot <span style="color: #FF0000;"><span style="font-weight: bold;">S2</span></span> to unwrap phase</span> in <span style="color: #FF0000;">phase plot and Nichols plot</span><br />
+first time installing:: may need to recompile the Bode Plot(App).<br />
+<span style="color: #FF0000;">&gt;&gt;App&gt;&gt;Bode Plot&gt;&gt;Shift&gt;&gt;1&gt;&gt;Bode plot(App)&gt;&gt;Check<br />
+</span><br />
+<br />
+Frequency response plots corresponding to G =          <br />
+      s + 2<br />
+  -----------<br />
+  3s^2 + 4s + 5<br />
+<br />
+BODE(ƒ1,ƒ2,[numerator],[denominator]) enter.<br />
+ƒ1 to ƒ2 (rad/s) is the frequency range you are interested.<br />
+BODE(0.01,100,[1 2],[3 4 5]) &gt;&gt;Enter.<br />
+<span style="font-weight: bold;"><span style="color: #FF0000;">ALWAYS:</span></span><br />
+Use &gt;&gt;VIEW from <span style="font-weight: bold;"><span style="font-size: large;">[HOME SCREEN]</span></span> for Plot selections &gt;&gt;Plot<br />
+&gt;&gt;VIEW&gt;&gt;START/Info to refresh Bode APP parameters. <br />
+BodeMag;<img src="BodeMag.png"><br />
+BodePhase;<img src="BodePhase.png"><br />
+Root Locus;<img src="RootLocus.png"><br />
+Step Response@ t=1;<img src="StepRes.png"><br />
+Ramp Response @t=1;<img src="RampRes.png"><br />
+Nyquist Plot;<img src="nyq.png"><br />
+Delay Response @t=1;<img src="Ress.png"><br />
+(1/(s^4+2*s^3+3*s^2+4*s+5))<br />
+[BODE(0.01,100,[1],[1,2,3,4,5]))<img src="step.png">
+<br />
+<br />
+<br />
+<hr size="1" />
+<!-- end: printthread_post --></td>
+</tr>
+</table>
+</body>
+</html>
+<!-- end: printthread -->
