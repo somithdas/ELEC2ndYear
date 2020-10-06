@@ -1,0 +1,51 @@
+//Determine the 2-port network matrix
+//i - the type (z,y,h,t) of the inputted matrix (m1)
+//o - the type (z,y,h,t) of the preferred type of matrix
+//z - impedance, y - admittance, h - hybrid, t - transmission
+
+#cas
+tpn(i,m1,o):=
+BEGIN
+
+local m2; // output matrix
+//Determines the output matrix given an impedance matrix - DONE
+IF i = z THEN
+CASE
+if o = y then m2:= [[m1(2,2),-m1(1,2)],[-m1(2,1),m1(1,1)]]/DET(m1); END;
+if o = h then m2:=[[det(m1)/m1(2,2),m1(1,2)/m1(2,2)],[-m1(2,1)/m1(2,2),1/m1(2,2)]]; END;
+if o = t then m2:=[[m1(1,1),det(m1)],[1,m1(2,2)]]/m1(2,1); END;
+END;
+END;
+
+//Determines the output matrix given an admittance matrix - DONE
+IF i = y THEN
+CASE
+if o = z then m2:= [[m1(2,2),-m1(1,2)],[-m1(2,1),m1(1,1)]]/det(m1); END;
+if o = h then m2:= [[1,-m1(1,2)],[m1(2,1),det(m1)]]/m1(1,1); END;
+if o = t then m2:= [[-m1(2,2),-1],[-det(m1),-m1(1,1)]]/m1(2,1); END;
+END;
+END;
+
+//Determines the output matrix given the hybrid matrix 
+IF i = h THEN
+CASE
+if o = z then m2:= [[det(m1),m1(1,2)],[-m1(2,1),1]]/m1(2,2); END;
+if o = y then m2:= [[1,-m1(1,2)],[m1(2,1),det(m1)]]/m1(1,1); END;
+if o = t then m2:=  [[-det(m1),-m1(1,1)],[-m1(2,2),-1]]/m1(2,1); END;
+END;
+END;
+
+//Determines the output matrix given the tramission matrix
+IF i = t THEN
+CASE
+if o = z then m2:= [[m1(1,1),DET(m1)],[1,m1(2,2)]]/m1(2,1); END;
+if o = y then m2:= [[m1(2,2),-det(m1)],[-1,m1(1,1)]]/m1(1,2); END;
+if o = h then m2:= [[m1(1,2),DET(m1)],[-1,m1(2,1)]]/m1(2,2); END;
+END;
+END;
+
+
+return(m2);
+
+END;
+#end

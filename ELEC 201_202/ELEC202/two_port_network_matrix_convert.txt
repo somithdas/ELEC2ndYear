@@ -1,0 +1,52 @@
+// Determine the 2-port network matrix
+// matrix_param_in - type if input matrix (z,y,t,h)
+// matrix_param_out - type if output matrix (z,y,t,h)
+// z - impedance, y - admittance, h - hybrid, t - transmission
+
+// Example, given a hybrid parameter matrix, h1, and you want to convert it to a transmission parameter matrix, t1, type:
+// t1:=tpn(h1,"h","t")
+
+EXPORT tpn(matrix_in,matrix_param_in,matrix_param_out)
+    BEGIN
+
+    local matrix_out; // output matrix
+
+    // Determines the output matrix given an impedance matrix - DONE
+    IF matrix_param_in == "z" THEN
+        CASE
+        if matrix_param_out = "y" then matrix_out:= [[matrix_in(2,2),-matrix_in(1,2)],[-matrix_in(2,1),matrix_in(1,1)]]/DET(matrix_in); END;
+        if matrix_param_out = "h" then matrix_out:= [[det(matrix_in)/matrix_in(2,2),matrix_in(1,2)/matrix_in(2,2)],[-matrix_in(2,1)/matrix_in(2,2),1/matrix_in(2,2)]]; END;
+        if matrix_param_out = "t" then matrix_out:= [[matrix_in(1,1),det(matrix_in)],[1,matrix_in(2,2)]]/matrix_in(2,1); END;
+        END;
+    END;
+
+    // Determines the output matrix given an admittance matrix - DONE
+    IF matrix_param_in == "y" THEN
+        CASE
+        if matrix_param_out = "z" then matrix_out:= [[matrix_in(2,2),-matrix_in(1,2)],[-matrix_in(2,1),matrix_in(1,1)]]/det(matrix_in); END;
+        if matrix_param_out = "h" then matrix_out:= [[1,-matrix_in(1,2)],[matrix_in(2,1),det(matrix_in)]]/matrix_in(1,1); END;
+        if matrix_param_out = "t" then matrix_out:= [[-matrix_in(2,2),-1],[-det(matrix_in),-matrix_in(1,1)]]/matrix_in(2,1); END;
+        END;
+    END;
+
+    // Determines the output matrix given the hybrid matrix 
+    IF matrix_param_in == "h" THEN
+        CASE
+        if matrix_param_out = "z" then matrix_out:= [[det(matrix_in),matrix_in(1,2)],[-matrix_in(2,1),1]]/matrix_in(2,2); END;
+        if matrix_param_out = "y" then matrix_out:= [[1,-matrix_in(1,2)],[matrix_in(2,1),det(matrix_in)]]/matrix_in(1,1); END;
+        if matrix_param_out = "t" then matrix_out:= [[-det(matrix_in),-matrix_in(1,1)],[-matrix_in(2,2),-1]]/matrix_in(2,1); END;
+        END;
+    END;
+
+    // Determines the output matrix given the tramission matrix
+    IF matrix_param_in == "t" THEN
+        CASE
+        if matrix_param_out = "z" then matrix_out:= [[matrix_in(1,1),DET(matrix_in)],[1,matrix_in(2,2)]]/matrix_in(2,1); END;
+        if matrix_param_out = "y" then matrix_out:= [[matrix_in(2,2),-det(matrix_in)],[-1,matrix_in(1,1)]]/matrix_in(1,2); END;
+        if matrix_param_out = "h" then matrix_out:= [[matrix_in(1,2),DET(matrix_in)],[-1,matrix_in(2,1)]]/matrix_in(2,2); END;
+        END;
+    END;
+
+    return(matrix_out);
+
+END;
